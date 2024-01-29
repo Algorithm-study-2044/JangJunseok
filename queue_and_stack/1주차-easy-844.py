@@ -1,3 +1,4 @@
+
 class Solution(object):
 
     def return_string(self,s):
