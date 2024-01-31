@@ -10,13 +10,12 @@ class MyStack(object):
         :rtype: None
         """
         
-
     def pop(self):
         return self.stack.pop()
         """
         :rtype: int
         """
-        
+
 
     def top(self):
         return self.stack[len(self.stack)-1]
