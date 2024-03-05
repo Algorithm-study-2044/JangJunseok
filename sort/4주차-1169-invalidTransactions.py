@@ -1,4 +1,4 @@
-#4주차. 다시할것.
+#4주차. 다시해볼것.
 
 class Solution(object):
     def invalidTransactions(self, transactions):

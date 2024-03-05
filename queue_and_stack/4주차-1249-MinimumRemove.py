@@ -30,3 +30,27 @@ class Solution(object):
                 res += char
         
         return res
+    
+
+
+#4주차. 다른 사람의 풀이 연구.
+    
+# 이렇게 하면 s를 두번 iterate하는게 아니라, 없애야 하는 부분의 idx만 찾은다음에,
+# 그것들을 없애고 join해주면 된다.
+    
+class Solution(object):
+    def minRemoveToMakeValid(self, s):
+        stack = []
+        arr = list(s)
+        for idx,char in enumerate(arr):
+            if char == "(":
+               stack.append(idx)
+            elif char == ")":
+                if len(stack) == 0:
+                    arr[idx] = ""
+                else:
+                    stack.pop() 
+        for i in stack:
+            arr[i] = ""
+        
+        return "".join(arr)
