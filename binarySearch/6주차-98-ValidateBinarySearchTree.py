@@ -1,7 +1,25 @@
-# 4:00  validate bineary search tree
-# 이렇게 하면 근데,
-# [5,4,6,null,null,3,7] 의 예에서, 3을 걸러낼 수 있나?
-# 3의 경우에는 1루트의 오른쪽, 2루트의 왼쪽인데.
+# 3차시도. 20분 소요. 26ms. 56% beats.
+# 최소, 최대값을 계속 업데이트해주면서, DFS를 해주면 된다.
+
+class Solution(object):
+    def isValidBST(self, root):
+
+        def DFS(node,minVal,maxVal):
+            if not node:
+                return True
+
+            # 조건을 봐봐. 왼쪽 node가 루트노드보다 같아도 안된다. 커도 안되지만.
+            if node.val >= maxVal or node.val <= minVal:
+                return False
+            
+            newMinVal = max(node.val, minVal)
+            newMaxVal = min(node.val, maxVal)
+
+            return DFS(node.left,minVal,newMaxVal) and DFS(node.right,newMinVal,maxVal)
+        
+        return DFS(root,float("-inf"), float("inf"))
+
+
 
 class Solution(object):
     def isValidBST(self, root):
@@ -58,4 +76,5 @@ class Solution(object):
         return DFS(root.left) and all([root.val > item for item in DFS(root.left)]) and DFS(root.right) and all([root.val < item for item in DFS(root.right)])
     
 
-#3차시도. 다른사람의 풀이 연구.
+#3차시도. 
+    
