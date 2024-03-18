@@ -41,6 +41,9 @@ class Solution:
         maxSize = 0
         
         for j, num in enumerate(nums):
+            #maxQueue에는 현재까지의 최대값만 저장한다. 그렇다고 해서 현제값까지의 최대를 다 저장하는 힙같은건 또 아니다.
+            #그럼 도대체 뭐가 저장되는거지? 최대 있을때, 그 오른쪽에 있는 얘들 중에서 그 다음으로 큰 애가 저장된다.
+            #그렇게 하면 sliding window시에 최대값을 업데이트하면서. 조건에 맞는지를 계속 비교해볼 수 있다.
             while maxQueue and maxQueue[-1] < num:
                 maxQueue.pop()
             
@@ -50,8 +53,16 @@ class Solution:
                 minQueue.pop()
                 
             minQueue.append(num)
+
+# sliding window의 시작지점과 끝지점을 이야기하는것 같음.
+# 일단 max-min이 limit보다 크면? 무조건 시작지점을 옮긴다. 
+# 그 과정에서 최대 최소값도 갱신해주고. 아마 그 과정을 이야기하는것 같다.
+            
+# 왜 queue를 쓰는가? 그것은. sliding window에서 기존 max, min값이 있을때, 그게 안되면 갱신해주는데, 그 갱신해주었을때의
+# 새로운 최대, 최소를 찾아주기 위함인듯하다. 
             
             while maxQueue[0] - minQueue[0] > limit:
+                
                 if maxQueue[0] == nums[i]:
                     maxQueue.popleft()
                 if minQueue[0] == nums[i]:

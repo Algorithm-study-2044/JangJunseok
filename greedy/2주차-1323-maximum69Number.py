@@ -8,3 +8,5 @@ class Solution(object):
             return num
         string = num2[0:idx] + "9" + num2[idx+1:]
         return int(string)
+    
+
