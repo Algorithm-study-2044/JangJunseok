@@ -27,35 +27,33 @@ class Solution(object):
         return False
     
 
-#2차시도. 다른 사람의 풀이 참고. 64ms. 75 beats.
+#2차시도. 다른 사람의 풀이 참고. 60ms. 90% beats.
     
-from collections import defaultdict, deque
+from collections import deque, defaultdict
 
 class Solution(object):
     def canFinish(self, numCourses, prerequisites):
-        
-        req_list = [0] * numCourses
-        adj_dict = defaultdict(list)
-        visited_count = 0
+        # prerequisites에 있는것들은 바로 못듣는다.
+        # 그리고 pre에 없는것들은 다 들을 수 있다.
+        queue = deque([])
+        pre_map = defaultdict(list)
+        visited = 0
+        courses_pre = [0] * (numCourses)
         
         for pre in prerequisites:
-            adj_dict[pre[1]].append(pre[0])
-            req_list[pre[0]] += 1
-
-        queue = deque([])
-
-        for index in range(len(req_list)):
-            if req_list[index] == 0:
-                queue.append(index)
-                req_list[index] = -1
-                visited_count += 1
+            pre_map[pre[1]].append(pre[0])
+            courses_pre[pre[0]] += 1
         
+        initial_queue = [index for index, value in enumerate(courses_pre) if value == 0]
+        queue = deque(initial_queue)
+
         while queue:
             curr = queue.popleft()
-            for target in adj_dict[curr]:
-                req_list[target] -= 1
-                if req_list[target] == 0:
-                    queue.append(target)
-                    visited_count += 1
+            visited += 1
+            if curr in pre_map:
+                for item in pre_map[curr]:
+                    courses_pre[item] -= 1
+                    if courses_pre[item] == 0:
+                        queue.append(item)
         
-        return visited_count == numCourses
+        return visited == numCourses
