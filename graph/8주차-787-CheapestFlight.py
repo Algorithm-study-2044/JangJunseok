@@ -2,7 +2,6 @@
 
 class Solution(object):
     def findCheapestPrice(self, n, flights, src, dst, k):
-        # create a graph from the flights data
         graph = {}
         for f in flights:
             if f[0] not in graph:
@@ -10,10 +9,7 @@ class Solution(object):
             graph[f[0]][f[1]] = f[2]
 
         # n은 도시 개수
-        # flights는 [출발도시, 도착도시, 가격]으로 이루어진 리스트
         
-        # bellman ford algorithm
-        # initialize distance with infinity except src to src which is 0
         distances = [float('inf')] * n
         distances[src] = 0
 
