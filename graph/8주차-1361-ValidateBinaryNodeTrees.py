@@ -52,7 +52,7 @@ class Solution(object):
 
 from collections import defaultdict
 class Solution:
-    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
+    def validateBinaryTreeNodes(self, n, leftChild, rightChild):
         graph = defaultdict(list)
         temp = {}
         for i in range(n):
@@ -98,7 +98,7 @@ class Solution:
 # 3차시도. 다른사람의 풀이 연구. 
     
 class Solution:
-    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
+    def validateBinaryTreeNodes(self, n: int, leftChild, rightChild):
         parent={}
         for p,child in enumerate(zip(leftChild,rightChild)):
             for c in child:
