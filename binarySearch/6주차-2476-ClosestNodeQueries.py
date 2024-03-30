@@ -19,9 +19,7 @@ class Solution(object):
         res = []
 
         def findOne(arr,target,val):
-            #val이 1이면 minValue, 즉 작으면서도 가장 큰 값
-            #val이 0이면 maxValue, 즉 크면서도 가장 작은 값.
-            #그런데 val == 0일때는, l 값이 0인 경우에는, 
+            
             l = 0
             r = len(arr) - 1
             while l<=r:
