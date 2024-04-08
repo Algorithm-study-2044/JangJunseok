@@ -40,8 +40,10 @@ class Solution(object):
         return curr_p
     
 
-#2차시도. 리트코드의 풀이 참고.
+
     
+# 리트코드의 풀이.
+ 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         return self.process(root, p, q)
@@ -50,15 +52,8 @@ class Solution:
         if not node: 
             return node 
         
-        # p, q중에 하나라도 node와 일치하면, 그냥 그 노드를 반환한다.
         if node == p or node == q: 
             return node
-        
-        # 만약 이 두 경우에 모두 해당하지 않으면, 그러면 왼쪽, 오른쪽을 탐색한다.
-
-        #self.process는 그래서 뭐하는 함수인데? 
-        #node.left, node.right를 탐색하면서, p, q가 있는지 확인하고,
-        
 
         left = self.process(node.left, p, q)
         right = self.process(node.right, p, q)
@@ -66,9 +61,37 @@ class Solution:
         if left and right: 
             return node
         
-        # right가 없고, left만 있는 경우.
         if left: 
             return left 
         
         if right: 
             return right
+        
+    
+
+# 민호님 풀이.
+
+class Solution:
+    LCA = None
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def dfs(node, p, q):
+            if node is None:
+                return node
+            
+            left = dfs(node.left, p, q)
+            right = dfs(node.right, p, q)
+
+            if node.val == p.val or node.val == q.val:
+                if left or right:
+                    self.LCA = node
+                return node
+            
+            elif left and right:
+                self.LCA = node
+                return node
+            
+            return left or right
+        
+        dfs(root, p, q)
+        
+        return self.LCA
