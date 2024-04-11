@@ -1,4 +1,4 @@
-# 5:53.
+# 5:53. 1차시도. 실패.
 
 class Solution:
     def findErrorNums(self, nums: List[int]) -> List[int]:
