@@ -29,8 +29,6 @@ class Solution(object):
         
         for num in nums:
             current_sum += num
-
-       
             count += prefix_sum.get(current_sum - k, 0)
             prefix_sum[current_sum] = prefix_sum.get(current_sum, 0) + 1
         
