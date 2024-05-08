@@ -23,13 +23,17 @@ class Solution(object):
             if length == 1:
                 return 1
 
+            # 저장된게 있으면 그걸 준다.
             if dp[num][length - 1] != 0:
                 return dp[num][length - 1]
 
+            # 저장된게 없으면 해당 스텝으로 갈 수 있는것들을 계산해서, 더하고 저장한다.
+            # 그리고 그걸 반환한다.
             res = 0
             for i in dial[num]:
                 res += DFS(i, length - 1)
                 res %= (10**9 + 7)
+                
             dp[num][length - 1] = res
             return res
 
