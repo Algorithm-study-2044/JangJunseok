@@ -11,7 +11,6 @@ class Solution(object):
 
             left = DFS(node.left)
             right = DFS(node.right)
-
             total = node.val + left + right
             res[0] = max(res[0], total)
 
@@ -22,11 +21,51 @@ class Solution(object):
         return res[0]
     
 
-# 그러면 해야할것은, 한번 DFS를 해서, 기댓값을 계산한다음에,
-# 그 다음에 root부터 내려가면서, 그걸 선택할지 안할건지를.
+# 2차시도.
 
-# 근데 노드가 있을때, 노드를 먹을건지, 아니면 노드먹고 왼쪽을 먹을건지, 노드먹고 오른쪽을 먹을건지.
-# 문제는 노드를 먹을건지 판단하는 과정이, 아니 애초에 rootNode 부터 시작하지 않을수도 있다는게 문제이다.
+class Solution(object):
+    def maxPathSum(self, root):
+        res = [float("-inf")]
 
-# 아니 루트에서 시작해서, 해당 루트가 그만큼의 가치가 없으면 버리고.
-# 
+        def DFS(node):
+            if not node:
+                return 0
+
+            # 추가한 건 여기서 0보다 작은 경우에는 그걸 total에 포함시키지 않았다는 것.
+            left = max(DFS(node.left),0)
+            right = max(DFS(node.right),0)
+            total = node.val + left + right
+            res[0] = max(res[0], total)
+
+            # 근데 이 부분은 왜 그런거지? 왜 left+right가 아니라, max(left,right)를 리턴하는 거지?
+            # 이유는, left+right가 아닌 max(left,right)를 리턴하는 이유는,
+
+            # 근데 둘다 양수인 경우에는, left+right가 더 크다. 그럼 왜 max를 리턴하는 거지?
+            # 그 이유는, 내 생각에는, 
+            # 여기서 return 하는 것은 비교를 위한 값이다.
+            # 그 말인 즉슨, 그 위에서 봤을때, 한쪽으로만 갈 수 있다는 것이다.
+
+            # 그래서 max(left, right)를 리턴하는 것이다.
+
+            return max(left,right)+node.val
+
+        DFS(root)
+
+        return res[0]
+    
+    
+class Solution:
+    def maxPathSum(self, root: TreeNode) -> int:
+        def findMaxPathSum(node):
+            nonlocal maxi
+            if not node:
+                return 0
+            left = max(findMaxPathSum(node.left), 0)
+            right = max(findMaxPathSum(node.right), 0)
+            maxi = max(maxi, left + right + node.val)
+            return max(left, right) + node.val
+        
+        maxi = float('-inf')
+        findMaxPathSum(root)
+        return maxi
+
