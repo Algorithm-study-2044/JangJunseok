@@ -16,8 +16,6 @@
 # [] 안에 있는 내용을 넣어주고, 그 return 값을 multiply해서 return 하는 식으로.
 # 근데 이렇게 하면 문제가 됨.
 
-
-
 class Solution(object):
     def decodeString(self, s):
         stack = []
