@@ -47,14 +47,29 @@ print(minval)
 # 2차시도. 다른 사람의 풀이 참고. 조합 활용.
 
 import sys
+
 from itertools import combinations
+
 N = int(sys.stdin.readline())
+
 stat = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
+
+# zip(*stat)이 행렬을 전치한다. *stat이 행렬을 unpack하는거고.  
 sum_stat = [sum(i) + sum(j) for i, j in zip(stat, zip(*stat))] # 대각선끼리 합
-allstat = sum(sum_stat) // 2 # 모든 값 합의 절반
+
+# sum_stat에는 1부터 N까지의 선수에 있어, 각 선수가 낼 수 있는 시너지 합이 들어있다.
+# 내가 궁금했던 건. 이런식으로 내 팀이 아닌 선수들과의 시너지까지 포함되었다고 했을때, 그것을 뺄 수 있는 방법이 있을까?에 대한 문제였음.
+
+# 그냥 stat의 모든 원소 합으로 계산해도 됨.
+allstat = sum(sum_stat) // 2 
+
 result = float('inf')
-for l in combinations(sum_stat, N//2): # 대각선 합에서 뽑은 2개 중에서
-    result = min(result, abs(allstat - sum(l))) # 모든 값의 절반 - 그 뽑은 2개 합의 차 = start팀 - link팀
+
+# 즉 원리는, 각 선수가 낼 수 있는 시너지의 합을 sum_stat에 넣고, 그 중에서 N//2개를 봅아서, 그것의 합이 그 팀의 시너지 합.
+
+for l in combinations(sum_stat, N//2): 
+    result = min(result, abs(allstat - sum(l))) 
+
 
 # 3차시도. 다른 사람의 풀이 참고. 백트래킹 활용.
 
