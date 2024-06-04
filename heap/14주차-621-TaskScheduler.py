@@ -121,3 +121,23 @@ class Solution:
 
         # idle이 음수라면? 
         return len(tasks) + idle if idle >= 0 else len(tasks)
+    
+
+# 송희님 풀이.
+
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        frequency = [0] * 26
+        for task in tasks:
+            frequency[ord(task) - ord("A")] += 1
+        max_frequency = max(frequency)
+
+        return max((max_frequency - 1) * (n + 1) + frequency.count(max_frequency), len(tasks))
+        # 내 생각에는, len(tasks)와 비교하는 이유는, 현재 tasks가 더 많은 경우에는, 그냥 tasks를 리턴해주면 되기 때문.
+        # 근데 이렇게 len(tasks)가 더 많은 경우가 있을까? 그런 경우가 있을까?
+
+        # 그리고 n+1의 간격을 만들어주었을때, 여기에 전체 task가 안들어갈수는?? 없다. 왜냐하면 max_frequency -1 만큼의 간격을 만들어주었기 때문에.  
+    
+        # 아니 근데 n개의 chunk에 다 안들어갈 수도 있지 않나?
+
+    
