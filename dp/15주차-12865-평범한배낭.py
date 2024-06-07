@@ -54,8 +54,6 @@ for weight, value in items:
 
 
 
-
-
 # 다른 사람의 풀이.
 
 import sys
