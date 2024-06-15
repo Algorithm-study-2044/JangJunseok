@@ -1,4 +1,4 @@
-# 2차시도. 1차시도의 오류 수정 후 성공함.
+r# 2차시도. 1차시도의 오류 수정 후 성공함.
 
 class Solution(object):
     def knightDialer(self, n):

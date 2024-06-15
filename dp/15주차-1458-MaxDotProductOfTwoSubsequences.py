@@ -15,5 +15,5 @@ class Solution:
                 tmp = dp[j + 1]
                 dp[j + 1] = max(prev + nums1[i] * nums2[j], nums1[i] * nums2[j], dp[j], dp[j + 1])
                 prev = tmp
-        
+        r
         return dp[-1]
