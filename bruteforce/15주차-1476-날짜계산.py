@@ -1,5 +1,11 @@
 # 2차시도. 성공. 13분 소요. 40ms.
 
+# 15*p + a이고 28*q + b이고 19*r + c이다.
+# 15*p + a = 28*q + b = 19*r + c = year
+# year - a는 15의 배수여야하고, year - b는 28의 배수여야하고, year - c는 19의 배수여야한다.
+
+# 그럼 최소 min(a,b,c)에서 시작해서, year가 이 3 조건을 만족하는지를 체크.
+
 a,b,c = map(int,input().split())
 year = min(a,b,c)
 

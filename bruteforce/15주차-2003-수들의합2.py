@@ -1,3 +1,45 @@
+# 10 5
+# 1 2 3 4 2 5 3 1 1 2
+
+# 그런데 left <= right 이렇게 하면, 둘이 같고 딱 동일할때가 안되지 않나?
+# 그러므로 match할때는, 그냥 right를 +1해주면 ok인거다. 그러면 커질텐데? 아니. 그래도 그 다음 로직에서 판별이 될테니까.
+
+# 내가 고민하는 부분은, 요소가 1이고, 그 요소가 target보다 클때, 이걸 어떻게 처리하냐는 것이다.
+# right는 포함하지 않는 걸로 고려를 하면 된다. 왜? 그러면 최악의 경우 len=0이니까 다시 right가 늘어나서 둘이 교차할 가능성은 없다.
+
+_,target = map(int,input().split())
+arr = list(map(int,input().split()))
+
+left = 0
+right = 1
+N = len(arr)
+res = 0
+curr = arr[0]
+
+while left <= right and right <= N:
+    # left = N일때도 들어갈 수는 있지만 curr == target이거나, curr > target일 수가 없다.
+    if curr == target:
+        curr -= arr[left]
+        left += 1
+        res += 1
+
+    elif curr > target:
+        curr -= arr[left]
+        left += 1
+    
+    elif curr < target:
+        # 왜? right == N일때도 들어갈건데, 이때는 확장되면 안되고 축소만 가능하다.
+        if right <= N-1:
+            curr += arr[right]
+        right += 1
+
+print(res)
+
+
+
+
+# 1차시도. 
+
 _,target = map(int,input().split())
 arr = list(map(int,input().split()))
 
