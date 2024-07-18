@@ -52,8 +52,6 @@ def solution(play_time, adv_time, logs):
             if value > max_value:
                 max_times = []
             max_value = value
-            # 이 부분이 헷갈렸다. 그러니까 지금 시간을 증가시킨 상황이니까, 
-            # 증가된 시간을 넣었어야 했는데.
             max_times.append(start_idx+1)
         start_idx += 1
     

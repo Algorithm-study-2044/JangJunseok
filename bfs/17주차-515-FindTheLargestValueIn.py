@@ -25,12 +25,6 @@ class Solution:
         BFS(root)
         return level
 
-                
-
-                    
-                
-                
-
 
 
 
