@@ -1,4 +1,58 @@
-# 2:38. 1차시도. 시간초과.
+# 638ms. 13.26% beats.
+
+# 공통 조상을 찾는다.
+# start, dest 각각 공통 조상과의 가는 방법을 구해준다.
+# start의 경우에는 다 up으로 바꾸고, dest는 그대로 둔다.
+
+# 만약 value에 해당하는 경우에는?
+# return하지 않고 계속 내려가야 할텐데..
+# 그 경우. 할당하고, 밑의 경우에서 같이 처리.
+
+# left, right둘다 찾은 경우에는? 계산.
+
+# 만약 left right 하나만 찾은 경우에는?
+# 자기에게 할당된 value와 함께 올려주면 됨.
+
+# 둘다 못찾았다? 그러면 return None.
+
+class Solution:
+    def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
+        ans = [""]
+        def DFS(node,assigned):
+            if not node:
+                return None
+            if node.val == startValue:
+                center = ["",0]
+            elif node.val == destValue:
+                center = ["",1]
+            else:
+                center = None
+
+            left = DFS(node.left,"L")
+            right = DFS(node.right,"R")
+            
+            if (center and left) or (center and right) or (left and right):
+                # 이 경우에는 이제 계산해준다.
+                arr = [x for x in [center,left,right] if x]
+                startPath = [x[0] for x in arr if x[1] == 0][0]
+                endPath = [x[0] for x in arr if x[1] == 1][0]
+                
+                startPath = "U" * len(startPath)
+                ans[0] += startPath
+                ans[0] += endPath
+                return
+            if center:
+                center[0] = assigned + center[0]
+                return center
+            if left:
+                left[0] = assigned + left[0]
+                return left
+            if right:
+                right[0] = assigned + right[0]
+                return right
+        
+        DFS(root, "")
+        return ans[0]
 
 
 # 정답 풀이.
