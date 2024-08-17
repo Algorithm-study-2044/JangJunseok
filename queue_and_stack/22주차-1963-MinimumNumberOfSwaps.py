@@ -14,3 +14,4 @@ class Solution:
                 stk.pop()
             elif c == '[':
                 stk.append(c)
+        
