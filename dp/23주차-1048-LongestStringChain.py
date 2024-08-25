@@ -54,7 +54,5 @@ class Solution:
                 for prev_item in df[idx-1]:
                     if is_predecessors(prev_item, items[i]):
                         best_length = max(best_length, cnt_dict[prev_item])
-                # 이 부분에서 실수했다. best_length를 구하는거는 모든 item에 대해서 해줘야 하는데, 각 아이템마다 덮어씌워버렸다.
-                # 디버깅할때 빨리 찾아주자.
                 cnt_dict[items[i]] = best_length + 1
         return max(cnt_dict.values())   
