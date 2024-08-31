@@ -6,7 +6,6 @@
 # cost 3 4 3 
 # gas  3 4 2
 
-
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         def get_idx(curr,arr):
