@@ -1,4 +1,5 @@
-# 11:32 시작.
+# 11:32 시작. 42ms. 51.72% beats.
+
 # 이진탐색으로 풀어야할까?
 # at least k라는것도 이진탐색이고, h val 찾는것도 이진탐색이다. 
 
@@ -10,7 +11,9 @@
 
 # 그래서 마지막에 min(len(arr1),end)를 해줬음. 만약 적어서 계속 end값이 축소되었을때, end값은 start - 1이 될 수도 있는데,
 # 그 보다는 len(arr1)이 되어야 하기 때문...이라고 생각은 하는데,
-# 잘 모르겠다. 
+# 잘 모르겠다. 11, 15에서 왜 len(arr1)을 반환하면 되는건지.
+# 아니 생각해보면, 두개. at least count, at least value.
+# at least value는 end를 반환하는데, at least count는 len(arr1)을 반환해야하니까?
 
 from bisect import bisect_left
 
