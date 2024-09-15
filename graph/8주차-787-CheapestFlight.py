@@ -18,14 +18,12 @@ class Solution(object):
 
             #k+1번 뭘 해주는가? distance를 업데이트해주는 것이다.
             #왜 k+1번 해주나? 그거는 최대 k+1번 이동할 수 있기 때문이다.
-            
             # 모든 도시에 대해서.
             for u in range(n):
                 if u in graph:
                     for v in graph[u]:
                         # 모든 길에 대해서 이거를 시행한다.
-                        # 그 길의 끝지점으로 가는 거리가, 현재길의 거리 + 그 길의 가격보다 크다면, 업데이트해준다.
-                        
+                        # 그 길의 끝지점으로 가는 거리가, 현재길의 거리 + 그 길의 가격보다 크다면, 업데이트해준다.                  
                         if distances[u] + graph[u][v] < distances[v]:
                             new_distances[v] = distances[u] + graph[u][v]
             distances = new_distances

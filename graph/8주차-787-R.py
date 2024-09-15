@@ -1,7 +1,10 @@
+# 참고해서 내가 풀어봄.
+
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
         
         flightrecords = {}
+        
         for flight in flights:
             if flight[0] not in flightrecords:
                 flightrecords[flight[0]]={flight[1]:flight[2]}
@@ -12,8 +15,53 @@ class Solution:
         minHeap = []
         heapq.heappush(minHeap,(0,(src,0)))
 
+        while minHeap:
+            curr_weight, node = heapq.heappop(minHeap)
+            # shortestdist가 필요한 이유.
+            # 아마 continue때문이 아닐까.
+
+            if node[0] in shortestdist:
+                # 근데 minHeap인데 이게 갱신될 일이 있나? 그냥 가장 먼저 나오는게 최대 weight 아니야?
+                if curr_weight < shortestdist[node[0]]:
+                    shortestdist[node[0]] = node[1]
+                else:
+                    continue
+            else:
+                # shortestdist[node[0]] = curr_weight
+                shortestdist[node[0]] = node[1]
+
+            if node[0] == dst:
+                return curr_weight
+
+            if flightrecords.get(node[0]):
+                for neigh, wei in flightrecords[node[0]].items():
+                    # if node[1] + 2 <= k:
+                    if node[1] < k or neigh == dst:
+                        heapq.heappush(minHeap,(curr_weight + wei,(neigh,node[1]+1)))
+
+        return -1
+
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        flightrecords = {}
+
+        for flight in flights:
+            if flight[0] not in flightrecords:
+                flightrecords[flight[0]]={flight[1]:flight[2]}
+            else:
+                flightrecords[flight[0]][flight[1]]=flight[2]
+            
+        shortestdist = {}
+        minHeap = []
+        heapq.heappush(minHeap,(0,(src,0)))
+
+        # minHeap이기 때문에, 항상 가중치가 적은 값이 먼저 나온다.
+
         while minHeap and len(shortestdist)!=n:
             weight,node = heapq.heappop(minHeap)
+
+            # 이 부분은 dst 이전에, 같은 노드로 가는 더 최단거리가 나왔을때 그걸 업데이트해주고,
+            # 만약 그게 아니면 pass해주는 것이다.
             if node[0] in shortestdist :
                 if node[1]<shortestdist[node[0]]:
                     shortestdist[node[0]]=node[1]
@@ -25,10 +73,9 @@ class Solution:
             if node[0]==dst:
                 return weight
 
-
             if flightrecords.get(node[0]):
                 for no,we in flightrecords[node[0]].items():
-                    if n not in shortestdist and (node[1]<k or no==dst):
+                    if (node[1]<k or no==dst):
                         heapq.heappush(minHeap,(weight+we,(no,node[1]+1)))
 
         return -1
@@ -48,7 +95,7 @@ class Solution:
             if cost >= min_val[0] or cnt > k+1:
                 return -1
 
-            if curr == dst and cnt <= k+1:
+            if curr == dst:
                 min_val[0] = min(min_val[0],cost)
                 return cost
             
@@ -64,7 +111,6 @@ class Solution:
             return min_val[0]
         else:
             return -1
-
 
 # 1차시도. 시간초과 실패.
 # 그러면 그냥 dfs로, 0에서 travel하면? 
